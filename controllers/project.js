@@ -35,10 +35,31 @@ var controller = {
             .catch((err) => {
             res.status(500).send({message: "Error al guardar el documento: " + err.message});
             });
-        
+    },
 
+    getProject: async function(req, res) {
+
+        //comprobamos si nos llega un id por la url
+        var projectId = req.params.id;
+        if (projectId == null) {
+            return res.status(404).send({ message: "El proyecto no tiene referencia" });
+        }
+
+        try {
+            const projectId = req.params.id;
+            if (!projectId) {
+                return res.status(404).send({ message: "El proyecto no existe" });
+            }
+            const project = await Project.findById(projectId);
+            if (!project) {
+                return res.status(404).send({ message: "El proyecto no existe" });
+            }
+            return res.status(200).send({ project });
+        } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: "Error al devolver los datos" });
+        }
     }
-
     
 
 };
