@@ -15,5 +15,18 @@ app.use(bodyParser.json());
 
 // rutas
 
+app.get( '/',(req,res) =>{
+    res.status(200).send(
+        "<h1>Pagina de inicio</h1>"
+    );
+});
+
+app.get( '/test',(req,res) =>{
+    res.status(200).send(
+        {message: 'Hola mundo desde mi API de NodeJS'}
+    );
+});
+
+
 // exportar
 module.exports = app;
